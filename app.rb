@@ -1,9 +1,12 @@
 require 'sinatra'
+require 'httparty'
+require 'nokogiri'
 
-get '/' do
-  "Hello World"
-end
 
-get 'hellopeople' do
-  "Hello World"
-end
+url = "https://miami.craigslist.org/search/sof"
+
+dom = Nokogiri::HTML(response.body)
+
+job_titles = dom.css('a.result-title.hdrlnk').map(&:content)
+
+p job_titles
